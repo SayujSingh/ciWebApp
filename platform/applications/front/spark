@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * --------------------------------------------------------------------
+ * CodeIgniter command-line tools
+ * --------------------------------------------------------------------
+ * The main entry point into the CLI system and allows you to run
+ * commands and perform maintenance on your application.
+ *
+ * Because CodeIgniter can handle CLI requests as just another web request
+ * this class mainly acts as a passthru to the framework itself.
+ */
+
+define('SPARKED', true);
+
+/*
+ *---------------------------------------------------------------
+ * BOOTSTRAP THE APPLICATION
+ *---------------------------------------------------------------
+ * This process sets up the path constants, loads and registers
+ * our autoloader, along with Composer's, loads our constants
+ * and fires up an environment-specific bootstrapping.
+ */
+
+// Refuse to run when called from php-cgi
+//if (strpos(php_sapi_name(), 'cgi') === 0)
+if (! ((PHP_SAPI == 'cli') || defined('STDIN')))
+{
+    die("The cli tool is not supported when running php-cgi. It needs php-cli to function!\n\n");
+}
+
+/*
+ *---------------------------------------------------------------
+ * Locate the front controller index.php and call it.
+ *---------------------------------------------------------------
+ * This process sets up the path constants, loads and registers
+ * our autoloader, along with Composer's, loads our constants
+ * and fires up an environment-specific bootstrapping.
+ */
+
+require dirname(__FILE__) . '/../../../public/index.php';

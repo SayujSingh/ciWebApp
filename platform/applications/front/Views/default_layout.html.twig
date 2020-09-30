@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Application Starter 5 Public Edition</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="{{ base_url('favicon.ico')|e('html_attr') }}" />
+    <link rel="apple-touch-icon-precomposed" href="{{ base_url('apple-touch-icon-precomposed.png')|e('html_attr') }}" />
+    <script type="text/javascript" src="{{ base_url('assets/lib/turbolinks/turbolinks.js')|e('html_attr') }}"></script>
+    <script type="text/javascript" src="{{ base_url('assets/composer-asset/components/modernizr/modernizr.js')|e('html_attr') }}"></script>
+    <script type="text/javascript" src="{{ base_url('assets/composer-asset/components/webfontloader/webfontloader.js')|e('html_attr') }}"></script>
+
+    <script type="text/javascript">
+    //<![CDATA[
+{#
+
+https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization
+https://developers.google.com/fonts/docs/webfont_loader
+https://github.com/typekit/webfontloader
+https://github.com/typekit/fvd
+https://google-webfonts-helper.herokuapp.com
+
+#}
+        WebFont.load({
+            custom: {
+                families: [
+                    'Open Sans',
+                    'Open Sans Condensed',
+                    'icons', 'outline-icons', 'brand-icons'
+                ],
+                urls: [
+                    '{{ base_url('assets/lib/open-sans/open-sans.min.css')|e('js') }}',
+                    '{{ base_url('assets/lib/open-sans-condensed/open-sans-condensed.min.css')|e('js') }}',
+                    '{{ base_url('assets/lib/fomantic-icons-default/icons.min.css')|e('js') }}'
+                ]
+            },
+            timeout: 2000
+        });
+
+    //]]>
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="{{ base_url('themes/front_default/css/front.min.css')|e('html_attr') }}" />
+    <link rel="stylesheet" href="{{ base_url('assets/composer-asset/components/highlightjs/styles/github.css')|e('html_attr') }}" />
+    <script src="{{ base_url('assets/composer-asset/components/jquery/jquery.min.js')|e('html_attr') }}"></script>
+
+    <script src="{{ base_url('assets/composer-asset/fomantic/ui/dist/semantic.min.js')|e('html_attr') }}"></script>
+    <script src="{{ base_url('assets/lib/headroom/headroom.min.js')|e('html_attr') }}"></script>
+    <script src="{{ base_url('assets/lib/headroom/jQuery.headroom.min.js')|e('html_attr') }}"></script>
+
+    <script type="text/javascript">
+    //<![CDATA[
+
+    function hide_mobile_menu() {
+
+        $('html, body').animate({
+            scrollTop: 0
+        }, 100);
+
+        var menu = $('#main_navigation .ui.vertical.menu');
+
+        menu.transition({
+            animation: 'slide down',
+            onComplete : function() {
+
+                menu.css('display', 'none');
+                $('#main_navigation .menu.toggle i').addClass('content').removeClass('close');
+            }
+        });
+    }
+
+    function toggle_mobile_menu() {
+
+        var menu = $('#main_navigation .ui.vertical.menu');
+
+        if (menu.hasClass('hidden')) {
+            show_mobile_menu();
+        } else {
+            hide_mobile_menu();
+        }
+    }
+
+    function show_mobile_menu() {
+
+        $('html, body').animate({
+            scrollTop: 0
+        }, 100);
+
+        var menu = $('#main_navigation .ui.vertical.menu');
+
+        $('#main_navigation .extra').hide();
+
+        menu.transition({
+            animation: 'slide down',
+            onComplete : function() {
+
+                menu.css('display', 'block');
+                $('#main_navigation .menu.toggle i').addClass('close').removeClass('content');
+            }
+        });
+    }
+
+    //]]>
+    </script>
+
+    <script src="{{ base_url('assets/composer-asset/components/highlightjs/highlight.pack.min.js')|e('html_attr') }}"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+
+    // highlight.js - Turbolinks compatibility.
+
+    hljs.called = false;
+    hljs.ArrayProto = [];
+
+    hljs.initHighlighting = function() {
+
+        if ((typeof Turbolinks === 'undefined') && hljs.initHighlighting.called) {
+            return;
+        }
+
+        hljs.initHighlighting.called = true;
+
+        var blocks = document.querySelectorAll('pre code');
+        hljs.ArrayProto.forEach.call(blocks, hljs.highlightBlock);
+    }
+
+    hljs.initHighlightingOnLoad = function() {
+
+        addEventListener("turbolinks:load", hljs.initHighlighting, false);
+        addEventListener("turbolinks:render", hljs.initHighlighting, false);
+        addEventListener('DOMContentLoaded', hljs.initHighlighting, false);
+        addEventListener('load', hljs.initHighlighting, false);
+    }
+
+    hljs.initHighlightingOnLoad();
+
+    //]]>
+    </script>
+
+    <script src="{{ base_url('assets/composer-asset/desandro/imagesloaded/imagesloaded.pkgd.min.js')|e('html_attr') }}"></script>
+    <script src="{{ base_url('assets/composer-asset/desandro/masonry/dist/masonry.pkgd.min.js')|e('html_attr') }}"></script>
+
+    <script type="text/javascript">
+    //<![CDATA[
+
+    document.addEventListener('turbolinks:load', function () {
+
+        var container = $('.masonry-container');
+
+        container.imagesLoaded( function () {
+
+            container.masonry({
+                columnWidth: '.masonry-item',
+                itemSelector: '.masonry-item',
+                percentPosition: true
+            });
+        });
+
+    });
+
+    //]]>
+    </script>
+
+    {% block top %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    {{ registry('controller').mainMenu.render()|raw }}
+    {{ registry('controller').header.render()|raw }}
+
+    <div id="main_content">
+
+        <div class="ui vertically padded grid page">
+
+            <div class="row">
+
+                <div class="sixteen wide column">
+
+                    {% block content %}
+                    {% endblock %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer id="footer">
+
+        <div class="ui vertically padded grid page black inverted footer attached segment">
+
+            <div class="row">
+
+                <div class="sixteen wide column">
+
+                    <div style="float: left;">
+
+                       <p>&copy; {% if 'now'|date('Y') > 2020 %}2020-{% endif %}{{ 'now'|date('Y') }} The MIT open source licence.</p>
+
+                    </div>
+
+                    <div style="float: right;">
+
+                       <p>Page rendered in {elapsed_time} seconds</p>
+
+                    </div>
+
+                    <a class="circular ui icon huge blue scroll top button" title="Go to top" style="display: none;"><i class="chevron up icon"></i></a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script type="text/javascript">
+    //<![CDATA[
+
+    $(function() {
+
+        // See http://appglobe.com/scroll-to-top-animation/
+
+        addScrollTopAnimation();
+
+        function addScrollTopAnimation() {
+
+            var $scrolltop_link = $('.ui.button.scroll.top');
+
+            $scrolltop_link.on('click', function (ev) {
+
+                ev.preventDefault();
+
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 700 );
+
+            }).data('hidden', 1).hide(); 
+
+            var scroll_event_fired = false;
+
+            $(window).on('scroll', function() {
+                scroll_event_fired = true;
+            });
+
+            // Checks every 300 ms if a scroll event has been fired.
+            setInterval(function() {
+
+                if( scroll_event_fired ) {
+
+                    // Main menu shadow.
+                    if ($(this).scrollTop() > 2) {
+                        $('#main_navigation .main_navigation_wrapper').addClass('with-shadow');
+                    } else {
+                        $('#main_navigation .main_navigation_wrapper').removeClass('with-shadow');
+                    }
+
+                    // Stop code below from being executed until the next scroll event. 
+                    scroll_event_fired = false; 
+
+                    var is_hidden =  $scrolltop_link.data('hidden'); 
+
+                    // Display the scroll top link when the page is scrolled 
+                    // down the height of half a viewport from top,  Hide it otherwise. 
+                    if ($(this).scrollTop() > $(this).height() / 2) {
+
+                        if (is_hidden) {
+                            $scrolltop_link.fadeIn(600).data('hidden', 0);
+                        }
+
+                    } else {
+
+                        if (!is_hidden) {
+                            $scrolltop_link.fadeOut(600).data('hidden', 1);
+                        }
+                    }
+                }
+
+            }, 300); 
+        }
+
+    });
+
+    $(function() {
+
+        $('.ui.dropdown:not(.native):not(.special)[multiple]').dropdown();
+        $('.ui.dropdown:not(.native):not(.special):not([multiple])').dropdown();
+
+        $('body').on('click', '.message .close', function() {
+
+            $(this)
+              .closest('.message')
+              .transition('fade')
+            ;
+        });
+
+        $('.ui.accordion')
+          .accordion()
+        ;
+
+        $('.popover').popup({ 'on': Modernizr.touch ? 'click' : 'hover' });
+
+        $('.main_navigation_wrapper').visibility({
+            type: 'fixed'
+        });
+
+        $('.main_navigation_wrapper:not(:first-of-type) [id]').removeAttr('id');
+
+        $('.main_navigation_wrapper:first-of-type').headroom({
+            offset : 50,
+            tolerance : 5
+        });
+
+        $('#main_navigation .menu.toggle').on('click', function(e) {
+
+            e.preventDefault();
+            toggle_mobile_menu();
+        });
+
+    });
+
+    //]]>
+    </script>
+
+    {% block bottom %}
+    {% endblock %}
+
+</body>
+</html>
