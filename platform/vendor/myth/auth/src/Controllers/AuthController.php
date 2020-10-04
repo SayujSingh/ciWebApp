@@ -1,5 +1,4 @@
 <?php namespace Myth\Auth\Controllers;
-
 use Config\Email;
 use CodeIgniter\Controller;
 use Myth\Auth\Entities\User;
@@ -60,6 +59,7 @@ class AuthController extends Controller
 	 */
 	public function attemptLogin()
 	{
+        helper('auth');
 		$rules = [
 			'login'	=> 'required',
 			'password' => 'required',
@@ -77,7 +77,6 @@ class AuthController extends Controller
 		$login = $this->request->getPost('login');
 		$password = $this->request->getPost('password');
 		$remember = (bool)$this->request->getPost('remember');
-
 		// Determine credential type
 		$type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
@@ -92,11 +91,13 @@ class AuthController extends Controller
 		{
 			return redirect()->to(route_to('reset-password') .'?token='. $this->auth->user()->reset_hash)->withCookies();
 		}
-
-		$redirectURL = session('redirect_url') ?? '/';
-		unset($_SESSION['redirect_url']);
-
-		return redirect()->to($redirectURL)->withCookies()->with('message', lang('Auth.loginSuccess'));
+        $newdata = array(
+            'username'  => $login,
+            'email'     => $login,
+            'logged_in' => TRUE
+        );
+        $this->session->set($newdata);
+		return redirect()->to('/user')->withCookies()->with('message', lang('Auth.loginSuccess'));
 	}
 
 	/**

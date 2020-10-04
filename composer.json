@@ -1,6 +1,0 @@
-{
-    "minimum-stability": "beta",
-    "require": {
-        "myth/auth": "^1.0@beta"
-    }
-}

@@ -36,6 +36,7 @@ class App extends BaseConfig
         'localhost',
         '::1',
         '127.0.0.1',
+        'ciwebapp.test'
     ];
 
     /*
