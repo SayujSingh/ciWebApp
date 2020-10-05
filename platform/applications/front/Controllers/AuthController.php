@@ -92,7 +92,6 @@ class AuthController extends Controller
 			return redirect()->to(route_to('reset-password') .'?token='. $this->auth->user()->reset_hash)->withCookies();
 		}
         $newdata = array(
-            'username'  => $login,
             'email'     => $login,
             'logged_in' => TRUE
         );
@@ -109,8 +108,8 @@ class AuthController extends Controller
 		{
 			$this->auth->logout();
 		}
-
-		return redirect()->to('/');
+        session_destroy();
+        return redirect()->to('/');
 	}
 
 	//--------------------------------------------------------------------

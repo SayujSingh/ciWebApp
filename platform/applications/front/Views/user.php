@@ -13,7 +13,8 @@
 </head>
 <?php $session = session();?>
 <h1>Welcome,<?php echo $session->get('email');?></h1>
-    <a href="logout" class="nav-link waves-effect">
+<h1><?php echo $session->get('username');?></h1>
+    <a href="logout" >
         log out
     </a>
 <body>

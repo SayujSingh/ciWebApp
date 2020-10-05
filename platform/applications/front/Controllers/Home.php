@@ -7,8 +7,6 @@ class Home extends \App\Core\BaseController
 {
     public function index()
     {
-
-
         return view('welcome_message');
     }
     public function user()
