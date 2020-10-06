@@ -1,9 +1,10 @@
-<?php namespace Myth\Auth\Controllers;
+<?php 
+namespace App\Controllers;
 use Config\Email;
 use CodeIgniter\Controller;
 use Myth\Auth\Entities\User;
 
-class AuthController extends Controller
+class Auth extends Controller
 {
 	protected $auth;
 	/**
@@ -50,7 +51,7 @@ class AuthController extends Controller
         // Set a return URL if none is specified
         $_SESSION['redirect_url'] = session('redirect_url') ?? previous_url() ?? '/';
 
-		return view($this->config->views['login'], ['config' => $this->config]);
+		return view('login', ['config' => $this->config]);
 	}
 
 	/**
