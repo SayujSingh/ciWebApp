@@ -1,4 +1,5 @@
-<?php namespace Myth\Auth\Config;
+<?php 
+namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 use Myth\Auth\Authentication\LocalAuthenticator;
