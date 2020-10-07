@@ -17,6 +17,7 @@ class PasswordValidator
 
     public function __construct(Auth $config)
     {
+        parent::__construct();
         $this->config = $config;
     }
 

@@ -40,7 +40,6 @@ class Auth extends BaseConfig
     // Layout for the views to extend
     //--------------------------------------------------------------------
 
-    public $viewLayout = 'Myth\Auth\Views\layout';
 
     //--------------------------------------------------------------------
     // Authentication
